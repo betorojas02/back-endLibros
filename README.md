@@ -5,7 +5,7 @@
 # Prueba Nexos (Libros) 
 
 
-documentacion para ver todas las peticiones del api de spring boot prueba de wolox y todas las peticiones utilizacion pro el genrar de datos : https://jsonplaceholder.typicode.com/
+documentacion para ver todas las peticiones del api de spring boot prueba de nexos  y todas las peticiones utilizacion para generar la prueba : 
 
 - https://documenter.getpostman.com/view/6832595/TzXzDcuM
 
