@@ -24,7 +24,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.credibanco.assessment.library.api.client.exceptions.ExcepcionesCliente;
 import com.credibanco.assessment.library.model.Editorial;
 import com.credibanco.assessment.library.service.EditorialService;
-//
+/**
+ * 
+ * controllador de editorial con sus metodos PU, GET POST , DELETE
+ * @author Jesus humberto Moreno Rojas
+ *
+ */
 @RestController
 @RequestMapping("/editorial")
 public class EditorialController  extends ExcepcionesCliente{
@@ -33,6 +38,11 @@ public class EditorialController  extends ExcepcionesCliente{
 	@Autowired
 	private EditorialService editorialService;
 	
+	
+	/**
+	 * 
+	 * @return lista todas las editoriales
+	 */
 	@GetMapping
 	public ResponseEntity<?> allEditorial(){
 		
@@ -48,9 +58,17 @@ public class EditorialController  extends ExcepcionesCliente{
 		}
 	}
 	
+	/**
+	 * 
+	 * metodo para guardar una nueva editorial
+	 * @param editorial
+	 * @param result
+	 * @return retorna la editorial creada
+	 */
 	@PostMapping("/save")
 	public ResponseEntity<?> saveEditorial(@Valid @RequestBody Editorial editorial , BindingResult result){
 		
+		// valida datos de entrada
 		if(result.hasErrors()) {
 			return this.validar(result);
 		}
@@ -69,14 +87,24 @@ public class EditorialController  extends ExcepcionesCliente{
 	
 	}
 	
+	/**
+	 * actualiza una editorial
+	 * @param editorial
+	 * @param result
+	 * @param id
+	 * @return la editorial actualizas
+	 */
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateEditorial(@Valid @RequestBody Editorial editorial , BindingResult result, @PathVariable Long id){
 		
+		
+		//valida datos de entrada
 		if(result.hasErrors()) {
 			return this.validar(result);
 		}
 		try {
 			
+			//valida si existe una editorial
 			Optional<Editorial> editorialDb = editorialService.findByIdEditorial(id);
 			if (!editorialDb.isPresent()) {
 				return ResponseEntity.notFound().build();
@@ -104,6 +132,11 @@ public class EditorialController  extends ExcepcionesCliente{
 	
 	
 	
+	/**
+	 * elimina una editorial 
+	 * @param id
+	 * @return is fue exitoso la eliminacion de al editorial
+	 */
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteEditorial(@PathVariable Long id){
 		try {

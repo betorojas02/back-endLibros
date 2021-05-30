@@ -27,7 +27,11 @@ import com.credibanco.assessment.library.model.Autor;
 import com.credibanco.assessment.library.model.Editorial;
 import com.credibanco.assessment.library.service.AutorService;
 
-
+/**
+ * Controlador para ver agregar eliminar y editar autores
+ * @author Jusus Humberto Moreno Rojas
+ *
+ */
 @RestController
 @RequestMapping("/autor")
 public class AutorController  extends ExcepcionesCliente{ 
@@ -36,6 +40,11 @@ public class AutorController  extends ExcepcionesCliente{
 	@Autowired
 	private AutorService autorService;
 	
+	
+	/**
+	 * 
+	 * @return lista de todos los autores
+	 */
 	@GetMapping
 	public ResponseEntity<?> allEditorial(){
 		
@@ -51,9 +60,17 @@ public class AutorController  extends ExcepcionesCliente{
 		}
 	}
 	
+	/**
+	 * guardar el autor con sus validaciones
+	 * @param Autor autor
+	 * @param retorna en autor guardado
+	 * @return
+	 */
 	@PostMapping("/save")
 	public ResponseEntity<?> saveAutor(@Valid @RequestBody Autor autor , BindingResult result){
 		
+		
+		//valida la entreda de datos
 		if(result.hasErrors()) {
 			return this.validar(result);
 		}
@@ -64,6 +81,12 @@ public class AutorController  extends ExcepcionesCliente{
 		
 	}
 	
+	
+	/**
+	 * buscar por nombre de autores
+	 * @param name
+	 * @return lista de autores dependiendo de la variable de entrada
+	 */
 	@GetMapping(params  = "name")
 	public ResponseEntity<?> nameFilter(@RequestParam( name = "name") String name){
 		try {
@@ -77,12 +100,23 @@ public class AutorController  extends ExcepcionesCliente{
 		}
 	}
 	
+	
+	/**
+	 * Actualiza un autor
+	 * @param autor
+	 * @param result
+	 * @param id
+	 * @return el autor actualizado
+	 */
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateAutor(@Valid @RequestBody Autor autor , BindingResult result, @PathVariable Long id){
 		
+		
+		// valida la  entrada de datos
 		if(result.hasErrors()) {
 			return this.validar(result);
 		}
+		// valida que el autor exista
 		Optional<Autor> autorlDb = autorService.findByIdAutor(id);
 		if (!autorlDb.isPresent()) {
 			return ResponseEntity.notFound().build();
@@ -105,6 +139,12 @@ public class AutorController  extends ExcepcionesCliente{
 	
 	
 
+	/**
+	 * elimana un autor
+	 * @param id
+	 * @return si fue existoso la eliminacion
+	 */
+	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteAutor(@PathVariable Long id){
 		try {

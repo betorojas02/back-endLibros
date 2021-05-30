@@ -34,6 +34,11 @@ import com.credibanco.assessment.library.service.AutorService;
 import com.credibanco.assessment.library.service.EditorialService;
 import com.credibanco.assessment.library.service.LibroService;
 
+/**
+ * controllador de libro con sus metodos PU, GET POST , DELETE
+ * @author Jesus humberto Moreno Rojas
+ *
+ */
 @RestController
 @RequestMapping("/libro")
 public class LibroController extends ExcepcionesCliente {
@@ -46,6 +51,10 @@ public class LibroController extends ExcepcionesCliente {
 	@Autowired
 	private EditorialService editorialService;
 
+	/**
+	 * 
+	 * @return lista todos los libros
+	 */
 	@GetMapping
 	public ResponseEntity<?> allEditorial() {
 
@@ -60,16 +69,26 @@ public class LibroController extends ExcepcionesCliente {
 		}
 	}
 
+	/**
+	 * guarda y valida la creacion de un libro
+	 * @param libro
+	 * @param result
+	 * @return retorna el libro creado
+	 * @throws ExcepcionMaximoPermitidoEditorial
+	 */
 	@PostMapping("/save")
 	public ResponseEntity<?> saveEditorial(@Valid @RequestBody Libro libro, BindingResult result)
 			throws ExcepcionMaximoPermitidoEditorial {
 
+		//se valida que exista una editorial
 		Optional<Editorial> EditorialDb = null;
+		//se valida los campos de entrada
 		if (result.hasErrors()) {
 			return this.validar(result);
 		}
 		Map<String, String> error = new HashMap<String, String>();
 
+		//se valida si existe un autor
 		Optional<Autor> autorDb = autorService.findByIdAutor(libro.getAutor().getId());
 		if (libro.getEditorial() != null) {
 			EditorialDb = editorialService.findByIdEditorial(libro.getEditorial().getId());
@@ -111,6 +130,11 @@ public class LibroController extends ExcepcionesCliente {
 		}
 	}
 	
+	/**
+	 * retorna los libros por buscada de año
+	 * @param year
+	 * @return 
+	 */
 	@GetMapping(params = "year")
 	public ResponseEntity<?> findTitulo(@RequestParam( name = "year") int year){
 		
@@ -128,6 +152,14 @@ public class LibroController extends ExcepcionesCliente {
 	}
 	
 	
+	/**
+	 * valida y actualiza un libro
+	 * @param libro
+	 * @param result
+	 * @param id
+	 * @return el libro actualizado
+	 * @throws ExcepcionMaximoPermitidoEditorial
+	 */
 	@PutMapping("/{id}")
 	public ResponseEntity<?> update(@Valid @RequestBody Libro libro, BindingResult result,@PathVariable Long id)
 		throws ExcepcionMaximoPermitidoEditorial {
@@ -181,6 +213,11 @@ public class LibroController extends ExcepcionesCliente {
 			}
 	}
 	
+	/**
+	 * elimina un libro
+	 * @param id
+	 * @return si fue exitoso la eliminacion de un libro
+	 */
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteLibro(@PathVariable Long id){
 		
