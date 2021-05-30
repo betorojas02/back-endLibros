@@ -12,7 +12,7 @@ documentacion para ver todas las peticiones del api de spring boot prueba de nex
 -  cada carpeta con sus respectivas apis. ejemplo (carpeta autor con SUS METODOS PUT, DELETE, POST,GET)
 
 
-### para correr el programa cambie el archivo properties con la configuracion de base de datos de oracle correspondientes
+### para correr el programa cambie el archivo properties con la configuracion de base de datos de oracle correspondiente
 
 
 ## agradecimeinto
