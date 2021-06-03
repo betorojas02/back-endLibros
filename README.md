@@ -15,6 +15,4 @@ documentacion para ver todas las peticiones del api de spring boot prueba de nex
 ### para correr el programa cambie el archivo properties con la configuracion de base de datos de oracle correspondiente
 
 
-## agradecimeinto
 
-- graicas por permitirme presentar esta prueba. 
